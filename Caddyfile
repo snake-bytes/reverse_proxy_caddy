@@ -1,0 +1,19 @@
+{
+        log {
+                output stdout
+                level {env.LOG_LEVEL}
+        }
+}
+
+{env.DOMAIN:localhost} {
+        reverse_proxy /auth/* auth:80 {
+        }
+
+        reverse_proxy /food_factory/* auth:80 {
+                header_up Host food_factory:80
+        }
+
+        reverse_proxy /web_store_cart/* auth:80 {
+                header_up Host web_store_cart:80
+        }
+}
